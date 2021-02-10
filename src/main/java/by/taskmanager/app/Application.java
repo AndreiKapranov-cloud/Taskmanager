@@ -1,45 +1,61 @@
 package by.taskmanager.app;
 
-import by.taskmanager.domain.OneTimeTask;
-import by.taskmanager.domain.RepeatableTask;
+import by.taskmanager.domain.*;
 
 public class Application {
     public static void main(String[] args) {
-        final RepeatableTask repeatableTask = new RepeatableTask("Family houses", "building",
-                "second", 5212023, 57);
+        //First realisation
+        User myUser = new User.Builder()
+                .withName("Rassel")
+                .withSurname("Crow")
+                .withAge(32)
+                .withId(8)     //id type Integer
+                .build();
+        myUser.printId();
+        final RepeatableTask repeatableTask = new RepeatableTask("Family houses", Category.BUILDING,
+                Priority.LOW, 5212023, 57);
         repeatableTask.getName();
 
         repeatableTask.setName("Family houses");
 
         repeatableTask.getCategory();
 
-        repeatableTask.setCategory("building");
+        repeatableTask.setCategory(Category.BUILDING);
 
         repeatableTask.getPriority();
 
-        repeatableTask.setPriority("second");
+        repeatableTask.setPriority(Priority.LOW);
 
         repeatableTask.massage();
 
         System.out.println(repeatableTask.toString());
         System.out.println();
 
-        final OneTimeTask oneTimeTask = new OneTimeTask("Supermarket", "building of high responsibility",
-                "first", 4172022, 6172022);
+
+        //second realisation
+        User myUser1 = new User.Builder()
+                .withName("Woitney")
+                .withSurname("Hoouston")
+                .withAge(32)
+                .withId("Number 7") //id type String
+                .build();
+        myUser1.printId();
+        final OneTimeTask oneTimeTask = new OneTimeTask("Supermarket", Category.BUILDING,
+                Priority.MAJOR, 4172022, 6172022);
         oneTimeTask.getName();
 
         oneTimeTask.setName("Supermarket");
 
         oneTimeTask.getCategory();
 
-        oneTimeTask.setCategory("building of high responsibility");
+        oneTimeTask.setCategory(Category.BUILDING);
 
         oneTimeTask.getPriority();
+        oneTimeTask.setPriority(Priority.MAJOR);
         oneTimeTask.setHelpersphone("+3754444444444");
 
         oneTimeTask.getHelp();
 
-        oneTimeTask.setPriority("first");
         oneTimeTask.massage();
 
         System.out.println(oneTimeTask.toString());

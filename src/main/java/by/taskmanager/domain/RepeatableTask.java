@@ -7,8 +7,8 @@ public class RepeatableTask extends AbstractTask {
     }
 
 
-    public RepeatableTask(String name, String category, String priority, int deadline, int count) {
-        super(name, category, priority, deadline);
+    public RepeatableTask(String name,Category category,Priority priority, int deadline, int count) {
+        super(name,category, priority, deadline);
         this.count = count;
     }
 
@@ -20,19 +20,19 @@ public class RepeatableTask extends AbstractTask {
         this.name = name;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public String getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(Priority priority) {
 
         this.priority = priority;
     }

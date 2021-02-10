@@ -1,18 +1,18 @@
 package by.taskmanager.domain;
 
-import java.util.Objects;
+
 
 public abstract class AbstractTask implements Task {
     protected String name;
-    protected String category;
-    protected String priority;
+    protected Category category;
+    protected Priority priority;
     protected int deadline;
     protected String helpersPhone;
 
     public AbstractTask() {
     }
 
-    public AbstractTask(String name, String category, String priority, int deadline) {
+    public AbstractTask(String name,Category category,Priority priority, int deadline) {
         this.name = name;
         this.category = category;
         this.priority = priority;
@@ -27,19 +27,19 @@ public abstract class AbstractTask implements Task {
         this.name = name;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public String getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 

@@ -7,8 +7,8 @@ public class OneTimeTask extends AbstractTask {
     public OneTimeTask() {
     }
 
-    public OneTimeTask(String name, String category, String priority, int deadline, int criticalDeadline) {
-        super(name, category, priority, deadline);
+    public OneTimeTask(String name,Category category,Priority priority, int deadline, int criticalDeadline) {
+        super(name,category, priority, deadline);
         this.criticalDeadline = criticalDeadline;
 
     }
@@ -21,19 +21,19 @@ public class OneTimeTask extends AbstractTask {
         this.name = name;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public String getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
