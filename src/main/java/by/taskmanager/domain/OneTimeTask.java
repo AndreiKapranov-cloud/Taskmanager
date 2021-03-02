@@ -1,14 +1,23 @@
 package by.taskmanager.domain;
 
-public class OneTimeTask extends AbstractTask {
+import java.util.UUID;
+import java.util.Objects;
+
+public class OneTimeTask extends AbstractTask implements Comparable<OneTimeTask> {
 
     private int criticalDeadline;
+    private String value;
 
     public OneTimeTask() {
+        value = UUID.randomUUID().toString();
     }
 
-    public OneTimeTask(String name,Category category,Priority priority, int deadline, int criticalDeadline) {
-        super(name,category, priority, deadline);
+    public OneTimeTask(String value) {
+        this.value = value;
+    }
+
+    public OneTimeTask(String name, Category category, Priority priority, int deadline, int criticalDeadline) {
+        super(name, category, priority, deadline);
         this.criticalDeadline = criticalDeadline;
 
     }
@@ -53,8 +62,8 @@ public class OneTimeTask extends AbstractTask {
         this.criticalDeadline = criticalDeadline;
     }
 
-    public void setHelpersphone(String helpersphone) {
-        this.helpersPhone = helpersphone;
+    public void setHelpersPhone(String helpersPhone) {
+        this.helpersPhone = helpersPhone;
     }
 
     @Override
@@ -68,15 +77,43 @@ public class OneTimeTask extends AbstractTask {
     }
 
     @Override
+    public int compareTo(OneTimeTask oneTimeTask) {
+        if (this.name.compareTo(oneTimeTask.name) < 0) {
+            return -1;
+        }
+        if (this.name.compareTo(oneTimeTask.name) > 0) {
+            return 1;
+        }
+        return 0;
+
+    }
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null || getClass() != that.getClass()) {
+            return false;
+        }
+        OneTimeTask oneTimeTask = (OneTimeTask) that;
+        return Objects.equals(value, oneTimeTask.value);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+    @Override
     public String toString() {
-        return "Task{" +
+        return "OneTimeTask{" +
+                "criticalDeadline=" + criticalDeadline +
                 "name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", priority='" + priority + '\'' +
-                ", deadline=" + deadline +
-                ",  criticalDeadline=" + criticalDeadline +
+                "category=" + category +
+                "priority=" + priority +
+                "deadline=" + deadline +
+                "helpersPhone='" + helpersPhone + '\'' +
                 '}';
     }
 }
+
 
 

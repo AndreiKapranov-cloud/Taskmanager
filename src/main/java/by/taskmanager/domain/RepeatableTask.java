@@ -1,14 +1,23 @@
 package by.taskmanager.domain;
 
-public class RepeatableTask extends AbstractTask {
-    private int count;
+import java.util.Objects;
+import java.util.UUID;
+
+public class RepeatableTask extends AbstractTask implements Comparable<RepeatableTask> {
+    private Integer count;
+    private String value;
 
     public RepeatableTask() {
+        value = UUID.randomUUID().toString();
+    }
+
+    public RepeatableTask(String value) {
+        this.value = value;
     }
 
 
-    public RepeatableTask(String name,Category category,Priority priority, int deadline, int count) {
-        super(name,category, priority, deadline);
+    public RepeatableTask(String name, Category category, Priority priority, int deadline, int count) {
+        super(name, category, priority, deadline);
         this.count = count;
     }
 
@@ -45,8 +54,8 @@ public class RepeatableTask extends AbstractTask {
         this.count = count;
     }
 
-    public void setHelpersphone(String helpersphone) {
-        this.helpersPhone = helpersphone;
+    public void setHelpersPhone(String helpersPhone) {
+        this.helpersPhone = helpersPhone;
     }
 
     @Override
@@ -69,5 +78,27 @@ public class RepeatableTask extends AbstractTask {
                 ", deadline=" + deadline +
                 ", count=" + count +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null || getClass() != that.getClass()) {
+            return false;
+        }
+        RepeatableTask repeatableTask = (RepeatableTask) that;
+        return Objects.equals(value, repeatableTask.value);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+    @Override
+    public int compareTo(RepeatableTask repeatableTask) {
+       int result = this.count.compareTo(repeatableTask.count);
+
+        return result;
     }
 }

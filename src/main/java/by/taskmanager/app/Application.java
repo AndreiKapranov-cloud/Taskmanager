@@ -2,6 +2,10 @@ package by.taskmanager.app;
 
 import by.taskmanager.domain.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Application {
     public static void main(String[] args) {
         //First realisation
@@ -12,27 +16,16 @@ public class Application {
                 .withId(8)     //id type Integer
                 .build();
         myUser.printId();
-        final RepeatableTask repeatableTask = new RepeatableTask("Family houses", Category.BUILDING,
-                Priority.LOW, 5212023, 57);
-        repeatableTask.getName();
-
-        repeatableTask.setName("Family houses");
-
-        repeatableTask.getCategory();
-
-        repeatableTask.setCategory(Category.BUILDING);
-
-        repeatableTask.getPriority();
-
-        repeatableTask.setPriority(Priority.LOW);
-
-        repeatableTask.massage();
-
-        System.out.println(repeatableTask.toString());
-        System.out.println();
-
-
-        //second realisation
+        List<RepeatableTask> repeatableTasks = new ArrayList<>();
+        repeatableTasks.add(new RepeatableTask("Bali camping", Category.BUILDING, Priority.LOW,
+                2122024, 126));
+        repeatableTasks.add(new RepeatableTask("Machu Pikchu", Category.BUILDING, Priority.LOW, 3112023,
+                111));
+        repeatableTasks.add(new RepeatableTask("Bora bora", Category.BUILDING, Priority.LOWEST,
+                4102022, 100));
+        Collections.sort(repeatableTasks);//sort by count
+        repeatableTasks.forEach(System.out::println);
+        //second realisation,
         User myUser1 = new User.Builder()
                 .withName("Woitney")
                 .withSurname("Hoouston")
@@ -40,25 +33,18 @@ public class Application {
                 .withId("Number 7") //id type String
                 .build();
         myUser1.printId();
-        final OneTimeTask oneTimeTask = new OneTimeTask("Supermarket", Category.BUILDING,
-                Priority.MAJOR, 4172022, 6172022);
-        oneTimeTask.getName();
+        List<OneTimeTask> oneTimeTasks = new ArrayList<>();
 
-        oneTimeTask.setName("Supermarket");
-
-        oneTimeTask.getCategory();
-
-        oneTimeTask.setCategory(Category.BUILDING);
-
-        oneTimeTask.getPriority();
-        oneTimeTask.setPriority(Priority.MAJOR);
-        oneTimeTask.setHelpersphone("+3754444444444");
-
-        oneTimeTask.getHelp();
-
-        oneTimeTask.massage();
-
-        System.out.println(oneTimeTask.toString());
+        OneTimeTask oneTimeTask1 = new OneTimeTask("Las Vegas", Category.BUILDING, Priority.LOW, 12032032,
+                1032033);
+        oneTimeTask1.setHelpersPhone("+3754443337776");
+        oneTimeTasks.add(oneTimeTask1);
+        oneTimeTasks.add(new OneTimeTask("London", Category.BUILDING, Priority.HIGH, 11032025,
+                11032026));
+        oneTimeTasks.add(new OneTimeTask("Chicago", Category.BUILDING, Priority.HIGH, 11022023,
+                11022024));
+        Collections.sort(oneTimeTasks);//sort by name
+        oneTimeTasks.forEach(System.out::println);
 
     }
 }
