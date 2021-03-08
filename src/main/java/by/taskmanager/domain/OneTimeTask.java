@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class OneTimeTask extends AbstractTask implements Comparable<OneTimeTask> {
 
-    private int criticalDeadline;
+    private Integer criticalDeadline;
     private String value;
 
     public OneTimeTask() {
@@ -84,9 +84,15 @@ public class OneTimeTask extends AbstractTask implements Comparable<OneTimeTask>
         if (this.name.compareTo(oneTimeTask.name) > 0) {
             return 1;
         }
-        return 0;
+if (this.name.compareTo(oneTimeTask.name) == 0)
+        { int result = this.criticalDeadline.compareTo(oneTimeTask.criticalDeadline);
+
+            return result;}
+
+return 0;
 
     }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -98,10 +104,12 @@ public class OneTimeTask extends AbstractTask implements Comparable<OneTimeTask>
         OneTimeTask oneTimeTask = (OneTimeTask) that;
         return Objects.equals(value, oneTimeTask.value);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(value);
     }
+
     @Override
     public String toString() {
         return "OneTimeTask{" +
@@ -114,6 +122,7 @@ public class OneTimeTask extends AbstractTask implements Comparable<OneTimeTask>
                 '}';
     }
 }
+
 
 
 

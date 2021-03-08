@@ -1,7 +1,6 @@
 package by.taskmanager.domain;
 
 
-
 public abstract class AbstractTask implements Task {
     protected String name;
     protected Category category;
@@ -12,7 +11,7 @@ public abstract class AbstractTask implements Task {
     public AbstractTask() {
     }
 
-    public AbstractTask(String name,Category category,Priority priority, int deadline) {
+    public AbstractTask(String name, Category category, Priority priority, int deadline) {
         this.name = name;
         this.category = category;
         this.priority = priority;
@@ -56,4 +55,6 @@ public abstract class AbstractTask implements Task {
                 ", deadline=" + deadline +
                 '}';
     }
+
+
 }
