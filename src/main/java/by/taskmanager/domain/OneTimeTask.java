@@ -76,7 +76,7 @@ public class OneTimeTask extends AbstractTask implements Comparable<OneTimeTask>
         System.out.println("Call + " + helpersPhone + " if need help.");
     }
 
-    @Override
+   @Override
     public int compareTo(OneTimeTask oneTimeTask) {
         if (this.name.compareTo(oneTimeTask.name) < 0) {
             return -1;
@@ -93,7 +93,7 @@ return 0;
 
     }
 
-    @Override
+  /*  @Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -108,8 +108,19 @@ return 0;
     @Override
     public int hashCode() {
         return Objects.hash(value);
-    }
+    }*/
+  public boolean equals(Object obj) {
+      if(obj != null && obj instanceof OneTimeTask) {
+          OneTimeTask o = (OneTimeTask) obj;
+          return name.equals(o.name);
+      }
+      return false;
+  }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
     @Override
     public String toString() {
         return "OneTimeTask{" +
