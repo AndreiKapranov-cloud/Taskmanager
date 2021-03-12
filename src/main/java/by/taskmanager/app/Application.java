@@ -3,64 +3,109 @@ package by.taskmanager.app;
 import by.taskmanager.domain.*;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class Application {
-    public static void main(String[] args) {
-    /*    System.out.println("Nice to meet you,my friend.Time to introduce yourself.Name,please:");
+    public static void main(String[] args) throws ZeroOrLessException {
+
+
+        System.out.println("Nice to meet you,my friend.Time to introduce yourself.Name,please:");
         Scanner scanner = new Scanner(System.in);
         String nameU = scanner.nextLine();
         System.out.println("Surname:");
         String surname = scanner.nextLine();
         System.out.println("Age:");
-        int age = scanner.nextInt();
+        int age = 0;
+
+        try {
+            age = scanner.nextInt();
+
+        } catch (InputMismatchException e) {//if user types String instead of int.
+            scanner.nextLine();//important line
+            System.out.println("Age has to be written in numbers(int).Age:");
+            age = scanner.nextInt();
+        }
+
         System.out.println("Id:");
+
         int id = scanner.nextInt();
+
         User myUser = new User.Builder()
                 .withName(nameU)
                 .withSurname(surname)
                 .withAge(age)
-                .withId(id)     //id type Integer
+                .withId(id)     //id type int.
                 .build();
         myUser.printId();
+
         System.out.println("What type of tasks would you choose?If OneTimeTask-type 1.If Repeatable-type 2. ");
         int type = scanner.nextInt();
         if (type == 2) {
             List<RepeatableTask> repeatableTasks = new ArrayList<>();
             System.out.println("Number of tasks:");
+
             int numR = scanner.nextInt();
             scanner.nextLine();
-            for (int i = 0; i < numR; i++) {
 
+            for (int i = 0; i < numR; i++) {
                 System.out.println("name of the task" + (i + 1) + ":");
 
+                RepeatableTask repeatableTask = new RepeatableTask();
 
-                String nameOfRTask = scanner.nextLine();
+                repeatableTask.setName(scanner.nextLine());
+
+
                 System.out.println("Category.BUILDING,COMPUTERS,ADVERTISEMENT,LOGISTICS or TRAVELLING:");
-                Category categoryR = Category.valueOf(scanner.next().toUpperCase());
+
+                repeatableTask.setCategory(Category.valueOf(scanner.next().toUpperCase()));
                 System.out.println("Priority.MAJOR,HIGH,LOW or LOWEST:");
-                Priority priorityR = Priority.valueOf(scanner.next().toUpperCase());
-                System.out.println("deadline:");
-                int deadlineR = scanner.nextInt();
+
+
+                repeatableTask.setPriority(Priority.valueOf(scanner.next().toUpperCase()));
+                try {
+                    System.out.println("deadline:");
+                    repeatableTask.setDeadline(scanner.nextInt());
+
+                } catch (ZeroOrLessException e) {//if deadline <= 0
+                    scanner.nextLine();
+                    System.out.println("deadline:");
+                    repeatableTask.setDeadline(scanner.nextInt());
+                }
+
+
                 System.out.println("count:");
-                int countR = scanner.nextInt();
-                scanner.nextLine();
-                repeatableTasks.add(new RepeatableTask(nameOfRTask, categoryR, priorityR, deadlineR, countR));
+                try {
+                    repeatableTask.setCount(scanner.nextInt());
+                } catch (CountException e) {//if count>1000
+                    scanner.nextLine();
+                    repeatableTask.setCount(scanner.nextInt());
+                } finally {
+
+
+                    repeatableTasks.add(repeatableTask);
+
+
+                    repeatableTasks.forEach(System.out::println);
+                    scanner.close();
+                }
             }
         }
-           repeatableTasks.add(new RepeatableTask("Bali camping", Category.BUILDING, Priority.LOW,
+    }
+
+
+
+
+
+        /* /*  repeatableTasks.add(new RepeatableTask("Bali camping", Category.BUILDING, Priority.LOW,
                     2122024, 126));
             repeatableTasks.add(new RepeatableTask("Machu Pikchu", Category.BUILDING, Priority.LOW, 3112023,
                     111));
             repeatableTasks.add(new RepeatableTask("Bora bora", Category.BUILDING, Priority.LOWEST,
                     4102022, 100));
             Collections.sort(repeatableTasks);//sort by count
-            repeatableTasks.forEach(System.out::println);
-            //second realisation,*/
-        User myUser1 = new User.Builder()
+            repeatableTasks.forEach(System.out::println);*/
+//second realisation
+      /*  User myUser1 = new User.Builder()
                 .withName("Woitney")
                 .withSurname("Hoouston")
                 .withAge(32)
@@ -195,17 +240,12 @@ public class Application {
         }*/
 
 
-        Map<Integer, String> map = oneTimeTasks.stream().collect(//convert List to Map
+      /*  Map<Integer, String> map = oneTimeTasks.stream().collect(//convert List to Map
                 Collectors.toMap(OneTimeTask::getCriticalDeadline, OneTimeTask::getName));
         map.forEach((key, value) -> System.out.println(value));//get names
         Collection<String> values = map.values();//turn back to list,work with values of map
         boolean allMatch = values.stream().allMatch(name -> name.length() > 1);
-        System.out.println("Name length > 1 = " + allMatch);
-
-
-    }
+        System.out.println("Name length > 1 = " + allMatch);*/
 
 
 }
-
-

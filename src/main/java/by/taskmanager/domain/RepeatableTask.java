@@ -26,7 +26,9 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
     }
 
     public void setName(String name) {
+
         this.name = name;
+
     }
 
     public Category getCategory() {
@@ -46,12 +48,28 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
         this.priority = priority;
     }
 
+    public int getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(int deadline) throws ZeroOrLessException {
+        this.deadline = deadline;
+        if (deadline <= 0) {
+            throw new ZeroOrLessException("Wrong input:deadline is a date,can't be zero or less:") {
+            };
+        }
+    }
+
     public int getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(int count) throws CountException {
         this.count = count;
+        if (count > 1000) {
+            throw new CountException("Too much,just toooo much.Count less then 1000,please:") {
+            };
+        }
     }
 
     public void setHelpersPhone(String helpersPhone) {
@@ -91,13 +109,15 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
         RepeatableTask repeatableTask = (RepeatableTask) that;
         return Objects.equals(value, repeatableTask.value);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(value);
     }
+
     @Override
     public int compareTo(RepeatableTask repeatableTask) {
-       int result = this.count.compareTo(repeatableTask.count);
+        int result = this.count.compareTo(repeatableTask.count);
 
         return result;
     }
