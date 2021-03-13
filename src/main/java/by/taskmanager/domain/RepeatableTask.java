@@ -1,5 +1,7 @@
 package by.taskmanager.domain;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -16,7 +18,7 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
     }
 
 
-    public RepeatableTask(String name, Category category, Priority priority, int deadline, int count) {
+    public RepeatableTask(String name, Category category, Priority priority, LocalDateTime deadline, int count) {
         super(name, category, priority, deadline);
         this.count = count;
     }
@@ -48,14 +50,16 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
         this.priority = priority;
     }
 
-    public int getDeadline() {
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(int deadline) throws ZeroOrLessException {
+    public void setDeadline(LocalDateTime deadline) throws SlayerException {
         this.deadline = deadline;
-        if (deadline <= 0) {
-            throw new ZeroOrLessException("Wrong input:deadline is a date,can't be zero or less:") {
+
+        StringBuffer duration = new StringBuffer(String.valueOf(this.getTimeRemaining()));
+        if (duration.charAt(2) == '-') {
+            throw new SlayerException("Congratulations,mister.You are already dead.") {
             };
         }
     }
@@ -81,6 +85,12 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
         System.out.println("Call + " + helpersPhone + " if need help.");
     }
 
+    @Override
+    public Duration getTimeRemaining() {
+
+        Duration timeRemaining = Duration.between(LocalDateTime.now(), deadline);
+        return timeRemaining;
+    }
 
     @Override
     public void massage() {

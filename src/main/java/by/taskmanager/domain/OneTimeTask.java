@@ -1,5 +1,7 @@
 package by.taskmanager.domain;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.Objects;
 
@@ -16,7 +18,8 @@ public class OneTimeTask extends AbstractTask implements Comparable<OneTimeTask>
         this.value = value;
     }
 
-    public OneTimeTask(String name, Category category, Priority priority, int deadline, int criticalDeadline) {
+    public OneTimeTask(String name, Category category, Priority priority, LocalDateTime deadline, int criticalDeadline)
+    {
         super(name, category, priority, deadline);
         this.criticalDeadline = criticalDeadline;
 
@@ -38,7 +41,7 @@ public class OneTimeTask extends AbstractTask implements Comparable<OneTimeTask>
         this.category = category;
     }
 
-    public Priority getPriority() {
+    public Priority getPriority(){
         return priority;
     }
 
@@ -46,11 +49,11 @@ public class OneTimeTask extends AbstractTask implements Comparable<OneTimeTask>
         this.priority = priority;
     }
 
-    public int getDeadline() {
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(int deadline) {
+    public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
@@ -65,7 +68,12 @@ public class OneTimeTask extends AbstractTask implements Comparable<OneTimeTask>
     public void setHelpersPhone(String helpersPhone) {
         this.helpersPhone = helpersPhone;
     }
+    @Override
+    public Duration getTimeRemaining(){
 
+        Duration timeRemaining = Duration.between(LocalDateTime.now(), deadline);
+       return timeRemaining;
+    }
     @Override
     public void massage() {
         System.out.println("Don't forget the critical deadline is " + criticalDeadline + ".");

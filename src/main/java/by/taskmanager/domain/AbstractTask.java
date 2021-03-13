@@ -1,17 +1,19 @@
 package by.taskmanager.domain;
 
 
+import java.time.LocalDateTime;
+
 public abstract class AbstractTask implements Task {
     protected String name;
     protected Category category;
     protected Priority priority;
-    protected int deadline;
+    protected LocalDateTime deadline;
     protected String helpersPhone;
 
     public AbstractTask() {
     }
 
-    public AbstractTask(String name, Category category, Priority priority, int deadline) {
+    public AbstractTask(String name, Category category, Priority priority, LocalDateTime deadline) {
         this.name = name;
         this.category = category;
         this.priority = priority;
@@ -20,10 +22,12 @@ public abstract class AbstractTask implements Task {
 
     public String getName() {
         return name;
+
     }
 
     public void setName(String name) {
         this.name = name;
+
     }
 
     public Category getCategory() {
@@ -40,6 +44,15 @@ public abstract class AbstractTask implements Task {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDateTime deadline)throws SlayerException {
+        this.deadline = deadline;
+
     }
 
     public void setHelpersPhone(String helpersPhone) {

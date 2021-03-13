@@ -13,6 +13,7 @@ public class User<T> {
 
     public void setId(T id) {
         this.name = name;
+
     }
 
     public static class Builder<T> {
@@ -25,6 +26,7 @@ public class User<T> {
         public Builder withName(String name) {
             newUser.name = name;
             return this;
+
         }
 
         public Builder withSurname(String surname) {
@@ -35,6 +37,7 @@ public class User<T> {
         public Builder withAge(int age) {
             newUser.age = age;
             return this;
+
         }
 
 

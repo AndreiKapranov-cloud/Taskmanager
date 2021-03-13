@@ -2,11 +2,12 @@ package by.taskmanager.app;
 
 import by.taskmanager.domain.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 
 public class Application {
-    public static void main(String[] args) throws ZeroOrLessException {
+    public static void main(String[] args) throws SlayerException {
 
 
         System.out.println("Nice to meet you,my friend.Time to introduce yourself.Name,please:");
@@ -62,16 +63,16 @@ public class Application {
 
 
                 repeatableTask.setPriority(Priority.valueOf(scanner.next().toUpperCase()));
-                try {
-                    System.out.println("deadline:");
-                    repeatableTask.setDeadline(scanner.nextInt());
+                scanner.nextLine();
 
-                } catch (ZeroOrLessException e) {//if deadline <= 0
-                    scanner.nextLine();
-                    System.out.println("deadline:");
-                    repeatableTask.setDeadline(scanner.nextInt());
+                System.out.println("deadline:");
+                try {
+                    repeatableTask.setDeadline(LocalDateTime.parse(scanner.nextLine()));
+
+                } catch (SlayerException e) {//if deadline is missed
                 }
 
+                System.out.println("Time remaining:" + repeatableTask.getTimeRemaining());
 
                 System.out.println("count:");
                 try {
