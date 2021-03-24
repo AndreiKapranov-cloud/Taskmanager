@@ -1,11 +1,14 @@
 package by.taskmanager.domain;
 
+import by.taskmanager.exception.CountException;
+import by.taskmanager.exception.SlayerException;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-public class RepeatableTask extends AbstractTask implements Comparable<RepeatableTask> {
+public class RepeatableTask extends AbstractTask implements Comparable<AbstractTask> {
     private Integer count;
     private String value;
 
@@ -57,8 +60,8 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
     public void setDeadline(LocalDateTime deadline) throws SlayerException {
         this.deadline = deadline;
 
-        StringBuffer duration = new StringBuffer(String.valueOf(this.getTimeRemaining()));
-        if (duration.charAt(2) == '-') {
+        StringBuffer duration = new StringBuffer(getTimeRemainingStr());
+        if (duration.charAt(0) == '-') {
             throw new SlayerException("Congratulations,mister.You are already dead.") {
             };
         }
@@ -70,8 +73,8 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
 
     public void setCount(int count) throws CountException {
         this.count = count;
-        if (count > 1000) {
-            throw new CountException("Too much,just toooo much.Count less then 1000,please:") {
+        if (count < 0) {
+            throw new CountException("Count can't be less then zero.Count,please:") {
             };
         }
     }
@@ -85,12 +88,21 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
         System.out.println("Call + " + helpersPhone + " if need help.");
     }
 
-    @Override
-    public Duration getTimeRemaining() {
 
+    @Override
+    public String getTimeRemainingStr() {
         Duration timeRemaining = Duration.between(LocalDateTime.now(), deadline);
-        return timeRemaining;
+        long seconds = timeRemaining.getSeconds();
+        long absSeconds = Math.abs(seconds);//get module of timeRemaining
+        String positive = String.format(
+                "%d days:%02d hours:%02d minutes:%02d seconds",
+                absSeconds / 86400,
+                (absSeconds % 86400) / 3600,
+                ((absSeconds % 86400) % 3600) / 60,
+                absSeconds % 60);
+        return seconds < 0 ? "-" + positive : positive;
     }
+
 
     @Override
     public void massage() {
@@ -99,7 +111,7 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "RepeatableTask{" +
                 "name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", priority='" + priority + '\'' +
@@ -108,27 +120,36 @@ public class RepeatableTask extends AbstractTask implements Comparable<Repeatabl
                 '}';
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
+    public boolean equals(Object obj) {
+        if (obj != null && obj instanceof RepeatableTask) {
+            RepeatableTask o = (RepeatableTask) obj;
+            return name.equals(o.name);
         }
-        if (that == null || getClass() != that.getClass()) {
-            return false;
-        }
-        RepeatableTask repeatableTask = (RepeatableTask) that;
-        return Objects.equals(value, repeatableTask.value);
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(name);
     }
 
-    @Override
+
     public int compareTo(RepeatableTask repeatableTask) {
-        int result = this.count.compareTo(repeatableTask.count);
+        if (this.name.compareTo(repeatableTask.name) < 0) {
+            return -1;
+        }
+        if (this.name.compareTo(repeatableTask.name) > 0) {
+            return 1;
+        }
+        if (this.name.compareTo(repeatableTask.name) == 0) {
+            int result = this.deadline.compareTo(repeatableTask.deadline);
 
-        return result;
+            return result;
+        }
+
+        return 0;
+
     }
+
 }
+

@@ -9,7 +9,7 @@ public interface Task {
 
     void getHelp();
 
-    public Duration getTimeRemaining();
+    public String getTimeRemainingStr();
 
     default void tellInfo() {
         System.out.println("This is a task to be solved.");

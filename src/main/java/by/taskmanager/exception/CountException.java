@@ -1,6 +1,4 @@
-package by.taskmanager.domain;
-
-import java.util.InputMismatchException;
+package by.taskmanager.exception;
 
 public class CountException extends RuntimeException {
     public CountException(String y){

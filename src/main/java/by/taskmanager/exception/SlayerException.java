@@ -1,4 +1,4 @@
-package by.taskmanager.domain;
+package by.taskmanager.exception;
 
 public class SlayerException extends Exception {
 
