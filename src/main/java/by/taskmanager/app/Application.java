@@ -56,7 +56,7 @@ public class Application {
         while (indicator) {
 
 
-            System.out.println("What type of task would you choose?If OneTimeTask-type 1.If RepeatableTask-type 2." +
+            System.out.println("What  type of task would you choose?If OneTimeTask-type 1.If RepeatableTask-type 2." +
                     "If you want to quit-type 3. ");
             int type = scanner.nextInt();
             scanner.nextLine();
